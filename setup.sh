@@ -161,20 +161,39 @@ echo "[3/3] 플러그인"
 if [ "${SKIP_PLUGINS:-0}" = 1 ]; then
   echo "  SKIP      SKIP_PLUGINS=1"
 elif command -v claude >/dev/null 2>&1; then
-  claude plugin marketplace add anthropics/claude-plugins-official >/dev/null 2>&1
+  for m in anthropics/claude-plugins-official \
+           Lum1104/Understand-Anything bradautomates/claude-video; do
+    claude plugin marketplace add "$m" >/dev/null 2>&1
+  done
   ok=0; fail=""
-  for p in superpowers ralph-loop hookify skill-creator \
-           claude-md-management session-report frontend-design; do
-    if claude plugin install "$p@claude-plugins-official" >/dev/null 2>&1; then
-      ok=$((ok+1))
-    else
-      fail="$fail $p"
-    fi
+  for p in superpowers@claude-plugins-official ralph-loop@claude-plugins-official \
+           hookify@claude-plugins-official skill-creator@claude-plugins-official \
+           claude-md-management@claude-plugins-official session-report@claude-plugins-official \
+           code-review@claude-plugins-official code-simplifier@claude-plugins-official \
+           frontend-design@claude-plugins-official serena@claude-plugins-official \
+           context7@claude-plugins-official github@claude-plugins-official \
+           playwright@claude-plugins-official figma@claude-plugins-official \
+           supabase@claude-plugins-official vercel@claude-plugins-official \
+           telegram@claude-plugins-official slack@claude-plugins-official \
+           understand-anything@understand-anything watch@claude-video; do
+    if claude plugin install "$p" >/dev/null 2>&1; then ok=$((ok+1)); else fail="$fail $p"; fi
   done
   echo "  PLUGIN    설치/확인 ${ok}건${fail:+, 실패:$fail}"
   [ -n "$fail" ] && echo "            실패분은 settings.json enabledPlugins 로 다음 실행 시 재시도된다"
 else
   echo "  DEFER     claude CLI 없음 - settings.json enabledPlugins 로 첫 실행 시 자동 설치"
+fi
+
+# MCP 서버형 플러그인은 로컬 런타임이 있어야 기동한다. 설치 자체는 성공해도
+# 런타임이 없으면 그 서버의 도구만 조용히 빠진다. 필요할 때 설치하면 되므로
+# 여기서는 무엇이 없는지만 알려준다 (설치 목록·명령은 claude/plugins/README.md).
+missing=""
+command -v npx >/dev/null 2>&1 || missing="$missing npx(playwright/figma/supabase/vercel/slack)"
+command -v uvx >/dev/null 2>&1 || missing="$missing uvx(serena)"
+command -v bun >/dev/null 2>&1 || missing="$missing bun(telegram)"
+if [ -n "$missing" ]; then
+  echo "  NOTE      MCP 런타임 미설치:$missing"
+  echo "            해당 플러그인의 스킬은 쓸 수 있으나 MCP 도구는 빠진다. 설치법은 claude/plugins/README.md"
 fi
 
 echo "완료. 검증: 새 세션에서 statusline 표시 / SessionStart 훅 주입 / skills·agents 노출,"

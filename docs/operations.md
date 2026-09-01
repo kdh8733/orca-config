@@ -13,6 +13,11 @@
 | 있는 도구 | jq · python3 · git · gh · crontab | 2026-09-01 |
 | 없는 도구 | node · npx · bun · uv/uvx · brew · tmux | 2026-09-01 |
 
+플러그인 20종은 전부 설치한다. MCP 서버형은 로컬 런타임(npx·uvx·bun)이 있어야 서버가
+기동하지만, 없어도 스킬은 그대로 쓸 수 있고 그 서버의 도구만 빠진다. 그래서 런타임을
+미리 깔지 않고 필요해진 시점에 설치한다 - `./setup.sh` 가 매번 무엇이 없는지 NOTE 로
+알려주고, 설치 명령은 `claude/plugins/README.md` 의 "런타임 설치" 표에 있다.
+
 macOS 전용이다. 다른 플랫폼에서 실행하면 `setup.sh` 가 거부한다.
 개인 PC(WSL2 + aoe) 환경은 별도 저장소 `claude-config` 가 담당하며, 두 저장소를
 합치지 않는다 - 세션 매니저(aoe vs Orca)가 settings.json 을 다루는 방식이 다르다.
@@ -88,8 +93,8 @@ Orca 훅 생존 개수와 `~/.zshrc` 통합 여부, 커밋되지 않은 repo 변
 | 시크릿 | 위치 | 확보 방법 |
 |---|---|---|
 | Claude Code 자격증명 | macOS 키체인(`Claude Code-credentials`) 또는 `~/.claude/.credentials.json` | `claude` 첫 실행 시 로그인 |
-| (보류) Context7 API 키 | 환경변수 `CONTEXT7_API_KEY` | 해당 플러그인을 실제로 설치할 때 |
-| (보류) GitHub PAT | 환경변수 `GITHUB_PERSONAL_ACCESS_TOKEN` | github MCP 플러그인을 설치할 때. 업무 계정 정책 확인 필요 |
+| Context7 API 키 | 환경변수 `CONTEXT7_API_KEY` | context7 MCP 도구를 실제로 쓸 때 |
+| GitHub PAT | 환경변수 `GITHUB_PERSONAL_ACCESS_TOKEN` | github MCP 도구를 실제로 쓸 때. 업무 계정 정책 확인 필요 |
 
 ## 검토 대기 항목
 

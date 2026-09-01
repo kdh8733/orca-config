@@ -39,7 +39,7 @@ MCP 서버는 별도 디렉토리를 두지 않는다 - 전부 플러그인 계�
 | Hook | verify-before-claim (SessionStart) + Orca 훅 12종(외부 소유) | |
 | Command | 없음 (디렉토리만) | 후보: /sync-env |
 | Ontology | 없음 (빈 디렉토리) | 업무/개인 분류 후 사용자가 추가 |
-| Plugin | 7종 (런타임 의존 없는 스킬형만) | 보류 목록과 사유는 plugins/README.md |
+| Plugin | 20종 · 마켓플레이스 3곳 | MCP 런타임(npx·uvx·bun)이 없으면 스킬만 동작한다. 런타임별 설치법은 plugins/README.md |
 
 원칙: 추측성 다작은 단순성 원칙 위반. 실사용에서 필요가 검증된 것만 추가한다.
 
