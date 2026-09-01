@@ -1,0 +1,25 @@
+orca-config  rules/   (Claude Code 'rules' 기능)
+===================================================
+배포: setup.sh 가 ~/.claude/rules/ 로 심링크. 사용자 전역 규칙 = 모든 프로젝트 적용.
+공식: https://code.claude.com/docs/en/memory.md
+
+작동
+- 이 디렉토리의 *.md 를 Claude Code 가 규칙으로 읽음 (하위 폴더 재귀 탐색)
+- paths frontmatter 없는 .md = 항상 로드 (세션 시작 + compaction 후 재주입) → CLAUDE.md 와 동급
+- paths: [glob...] 있는 .md = 매칭 파일을 읽을 때만 lazy 로드 (토큰 절약 + 경로 한정)
+
+언제 무엇을
+- 전역/항상 원칙 → 기존 글로벌 CLAUDE.md 유지 (여기에 중복 금지)
+- 특정 언어/디렉토리 한정 제약 → 여기에 paths 한정 .md 로 분리 (멀티 프로젝트에 유용)
+
+추가법
+  <주제>.md 만들고, 경로 한정하려면 상단에 frontmatter:
+    ---
+    paths:
+      - "src/api/**/*.ts"
+    ---
+  그 아래 본문에 규칙. 끝.
+
+주의
+- 이 폴더의 .md 는 전부 규칙으로 로드된다. 문서/메모는 .md 로 두지 말 것
+  (그래서 이 안내가 .txt 다. .txt 는 로드 안 됨).

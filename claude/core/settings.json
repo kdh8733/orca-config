@@ -1,0 +1,38 @@
+{
+  "autoUpdatesChannel": "latest",
+  "enabledPlugins": {
+    "claude-md-management@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "session-report@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/verify-before-claim.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "command": "bash \"$HOME/.claude/statusline-orca.sh\"",
+    "refreshInterval": 60,
+    "type": "command"
+  }
+}

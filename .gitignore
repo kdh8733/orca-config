@@ -1,0 +1,6 @@
+*.bak*
+.env
+*token*
+*credentials*
+.claude/settings.local.json
+.DS_Store

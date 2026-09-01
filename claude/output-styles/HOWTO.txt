@@ -1,0 +1,16 @@
+orca-config  output-styles/   (Claude Code 'output styles')
+=============================================================
+배포: setup.sh 가 ~/.claude/output-styles/ 로 심링크.
+공식: https://code.claude.com/docs/en/output-styles.md
+
+작동
+- *.md = 선택 가능한 출력 스타일. 활성화하면 시스템 프롬프트에 주입됨
+  (지시 우선순위 최상, compaction 에도 유지).
+- 활성화: /config -> Output style 에서 선택 (구 /output-style 명령은 v2.1.91 에서 제거됨).
+  또는 settings.json 의 "outputStyle": "<name>" 직접 지정.
+- frontmatter: name, description, keep-coding-instructions (기본 false; true 면 코딩 능력 유지).
+- 내장 스타일: Default / Proactive / Explanatory / Learning.
+
+주의
+- 활성화는 명시적 opt-in. 파일만 둔다고 기본 동작이 바뀌지 않는다.
+- 이 안내는 .txt 라 스타일 목록에 안 뜸 (스타일은 .md 만).
