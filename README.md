@@ -48,7 +48,7 @@ orca-config/
 │   ├── commands/             #   (비어 있음)
 │   ├── rules/                #   경로 한정 규칙 - paths frontmatter (→ ~/.claude/rules)
 │   ├── output-styles/        #   출력 스타일 - opt-in /config 활성화
-│   └── plugins/              #   플러그인 명세 - 설치 20종 + 런타임 의존성 표
+│   └── plugins/              #   플러그인 명세 - 설치 19종 + 런타임 의존성 표
 │
 ├── projects/                 # 지식: 도메인별 ontology (→ ~/.claude/knowledge)
 │                             #   현재 비어 있음 - 업무/개인 분류 후 추가
@@ -68,7 +68,7 @@ orca-config/
 | Rules | 경로/주제 한정 규칙 | 없음 (HOWTO만) |
 | Output style | 시스템 프롬프트 교체 - 명시적 opt-in (`/config`) | critical-reviewer |
 | Ontology | 도메인 What/Where 인덱스 | 없음 (빈 디렉토리) |
-| Plugin/MCP | 외부 도구 통합 | 20종 · 마켓플레이스 3곳 - 명세는 [claude/plugins/](claude/plugins/README.md) |
+| Plugin/MCP | 외부 도구 통합 | 19종 · 마켓플레이스 3곳 - 명세는 [claude/plugins/](claude/plugins/README.md) |
 
 ## Orca 와의 관계 한 장 요약
 

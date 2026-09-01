@@ -173,7 +173,7 @@ elif command -v claude >/dev/null 2>&1; then
            frontend-design@claude-plugins-official serena@claude-plugins-official \
            context7@claude-plugins-official github@claude-plugins-official \
            playwright@claude-plugins-official figma@claude-plugins-official \
-           supabase@claude-plugins-official vercel@claude-plugins-official \
+           supabase@claude-plugins-official \
            telegram@claude-plugins-official slack@claude-plugins-official \
            understand-anything@understand-anything watch@claude-video; do
     if claude plugin install "$p" >/dev/null 2>&1; then ok=$((ok+1)); else fail="$fail $p"; fi
@@ -188,7 +188,7 @@ fi
 # 런타임이 없으면 그 서버의 도구만 조용히 빠진다. 필요할 때 설치하면 되므로
 # 여기서는 무엇이 없는지만 알려준다 (설치 목록·명령은 claude/plugins/README.md).
 missing=""
-command -v npx >/dev/null 2>&1 || missing="$missing npx(playwright/figma/supabase/vercel/slack)"
+command -v npx >/dev/null 2>&1 || missing="$missing npx(playwright/figma/supabase/slack)"
 command -v uvx >/dev/null 2>&1 || missing="$missing uvx(serena)"
 command -v bun >/dev/null 2>&1 || missing="$missing bun(telegram)"
 if [ -n "$missing" ]; then

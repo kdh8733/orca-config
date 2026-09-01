@@ -9,7 +9,7 @@ MCP 서버는 전부 이 플러그인 계층 소속이다.
 > repo의 `claude/core/settings.json` 에 반영하고 이 명세를 갱신할 것.
 > `./setup.sh --check` 가 드리프트를 잡아준다.
 
-현재 형상: **20종 · 마켓플레이스 3곳**
+현재 형상: **19종 · 마켓플레이스 3곳**
 
 ## 워크플로우 / 메타 (6)
 
@@ -41,7 +41,7 @@ MCP 서버는 전부 이 플러그인 계층 소속이다.
 | understand-anything | `/understand` 계열 - 멀티에이전트 코드베이스 지식그래프·투어. 무거움 - 처음 보는 큰 코드베이스 전용 | 불필요 |
 | context7 | 라이브러리 최신 공식 문서 조회(MCP) - 학습 컷오프 이후의 API·버전 정확성이 필요할 때 | HTTP MCP + `CONTEXT7_API_KEY` |
 
-## 외부 통합 - MCP (7)
+## 외부 통합 - MCP (6)
 
 | 플러그인 | 언제 쓰나 | 런타임 |
 |---|---|---|
@@ -51,7 +51,6 @@ MCP 서버는 전부 이 플러그인 계층 소속이다.
 | telegram | Claude를 텔레그램 봇 채널로 연결(`/configure` 로 토큰 등록, 페어링·allowlist 관리) | **bun** (`.mcp.json` 확인) |
 | figma | Figma MCP+스킬 - 다이어그램 생성, 디자인↔코드, 디자인시스템 | 미확인 (외부 repo) |
 | supabase | Supabase 전반(DB·Auth·RLS·마이그레이션) + Postgres 베스트 프랙티스 스킬 | 미확인 (외부 repo) |
-| vercel | Vercel 배포·Next.js·AI SDK 전문 스킬+서브에이전트 | 미확인 (외부 repo) |
 
 ## 프론트엔드 / 미디어 (2)
 
@@ -71,7 +70,7 @@ NOTE 로 알려준다.
 | 필요한 것 | 설치 | 이걸 살리는 플러그인 |
 |---|---|---|
 | Homebrew | `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` | 아래 셋의 전제(원하면 각 공식 설치 경로를 써도 된다) |
-| node/npx | `brew install node` | playwright, (미확인) figma·supabase·vercel·slack |
+| node/npx | `brew install node` | playwright, (미확인) figma·supabase·slack |
 | uv/uvx | `brew install uv` | serena |
 | bun | `brew install oven-sh/bun/bun` | telegram |
 
@@ -88,3 +87,13 @@ NOTE 로 알려준다.
   `~/.claude/plugins/marketplaces/claude-plugins-official/.claude-plugin/marketplace.json`
   (291종)을 조회한다. 기억만으로 플러그인 이름을 제안하지 않는다.
 - 무거운 멀티에이전트 플러그인(understand-anything 등)을 trivial 작업에 돌리지 않는다.
+- 훅을 거는 플러그인은 런타임 부재를 조용히 넘기지 않는다. 플러그인 훅 커맨드가
+  `node`/`bun` 등으로 시작하면 그 런타임이 없는 이 머신에서는 매 세션 훅 에러가
+  뜬다. 설치 후 `~/.claude/plugins/cache/<marketplace>/<plugin>/*/hooks/hooks.json`
+  을 확인할 것.
+
+## 제거 이력
+
+| 플러그인 | 제거일 | 이유 |
+|---|---|---|
+| vercel | 2026-09-01 | SessionStart 훅 3개가 전부 `node` 호출인데 이 머신에 node 가 없어 세션마다 에러 3줄이 떴다. Vercel/Next.js 배포 작업 예정이 없고, 스킬 ~30개를 매 세션 컨텍스트에 올리는 비용도 컸다. 필요해지면 node 설치 후 재설치한다 |

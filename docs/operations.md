@@ -13,7 +13,7 @@
 | 있는 도구 | jq · python3 · git · gh · crontab | 2026-09-01 |
 | 없는 도구 | node · npx · bun · uv/uvx · brew · tmux | 2026-09-01 |
 
-플러그인 20종은 전부 설치한다. MCP 서버형은 로컬 런타임(npx·uvx·bun)이 있어야 서버가
+플러그인 19종을 설치한다. MCP 서버형은 로컬 런타임(npx·uvx·bun)이 있어야 서버가
 기동하지만, 없어도 스킬은 그대로 쓸 수 있고 그 서버의 도구만 빠진다. 그래서 런타임을
 미리 깔지 않고 필요해진 시점에 설치한다 - `./setup.sh` 가 매번 무엇이 없는지 NOTE 로
 알려주고, 설치 명령은 `claude/plugins/README.md` 의 "런타임 설치" 표에 있다.
@@ -105,8 +105,6 @@ Orca 훅 생존 개수와 `~/.zshrc` 통합 여부, 커밋되지 않은 repo 변
   "permissions": { "defaultMode": "bypassPermissions" },
   "skipDangerousModePermissionPrompt": true
   ```
-- **원격 저장소**: 아직 로컬 git 저장소만 있다. 업무 코드/설정을 어디에 올릴지
-  (회사 GitHub Enterprise vs 개인 계정 private) 결정 후 remote 를 붙인다.
 
 ## 변경 워크플로
 
@@ -114,5 +112,5 @@ Orca 훅 생존 개수와 `~/.zshrc` 통합 여부, 커밋되지 않은 repo 변
 live 편집(= symlink 라 repo가 바뀜) 또는 repo 직접 편집
   → ./setup.sh --check 로 확인
   → git commit
-  → (원격이 생기면) push
+  → git push
 ```
