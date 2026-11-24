@@ -1,4 +1,5 @@
 {
+  "outputStyle": "fluent-korean",
   "autoUpdatesChannel": "latest",
   "enabledPlugins": {
     "claude-md-management@claude-plugins-official": true,
